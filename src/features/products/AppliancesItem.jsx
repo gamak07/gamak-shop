@@ -4,7 +4,9 @@ import Button from "../../ui/Button";
 import Rating from "../../ui/Rating";
 
 const AppliancesItem = ({ product }) => {
-  const { name, image, price, id: productId } = product;
+  const { name, image, price, id: productId, average_rating, total_ratings } = product;
+console.log(total_ratings);
+
   const navigate = useNavigate();
 
   return (
@@ -16,14 +18,14 @@ const AppliancesItem = ({ product }) => {
         <img
           src={image}
           alt={name}
-          className="h-full object-contain max-h-[200px]"
+          className="object-contain max-h-[200px]"
         />
       </div>
       <div className="flex flex-col justify-between h-full">
         <div>
           <h1 className="text-lg font-bold text-gray-800">{name}</h1>
           <p className="text-md text-gray-600">{formatCurrency(price)}</p>
-          <Rating />
+          <Rating average_rating={average_rating} total_ratings={total_ratings} />
         </div>
         <Button
           className="bg-indigo-600 text-white py-2 mt-2 rounded-md hover:bg-indigo-500 transition 

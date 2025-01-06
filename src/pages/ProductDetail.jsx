@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom"
+import ProductInformation from "../features/ProductDetails/ProductInformation";
+import RelatedProducts from "../features/ProductDetails/RelatedProducts";
 
 const ProductDetail = () => {
-    const { id } = useParams()
-    console.log(id);
-    
-    return (
-        <div>id: {id}</div>
-    )
-}
+  return (
+    <>
+      <ProductInformation />
+      <RelatedProducts />
+    </>
+  );
+};
 
-export default ProductDetail
+export default ProductDetail;
