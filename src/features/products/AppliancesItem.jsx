@@ -1,14 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { formatCurrency } from "../../utils/helper";
-import Button from "../../ui/Button";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../carts/cartSlice";
+import {toast} from 'react-toastify'
+
+import AddToCartButton from "../../ui/AddToCartButton";
 import Rating from "../../ui/Rating";
 
 const AppliancesItem = ({ product }) => {
   const { name, image, price, id: productId, average_rating, total_ratings } = product;
-console.log(total_ratings);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  
 
+  const handleAddToCart = (e) => {
+    e.stopPropagation()
+    dispatch(addToCart(product))
+  }
   return (
     <div
       className="bg-white rounded-lg shadow-md flex flex-col h-[400px] p-4"
@@ -27,12 +36,7 @@ console.log(total_ratings);
           <p className="text-md text-gray-600">{formatCurrency(price)}</p>
           <Rating average_rating={average_rating} total_ratings={total_ratings} />
         </div>
-        <Button
-          className="bg-indigo-600 text-white py-2 mt-2 rounded-md hover:bg-indigo-500 transition 
-          duration-300 w-full"
-        >
-          Add to cart
-        </Button>
+        <AddToCartButton handleAddToCart={handleAddToCart} />
       </div>
     </div>
   );

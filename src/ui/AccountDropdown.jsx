@@ -2,8 +2,10 @@ import { CiHeart } from "react-icons/ci";
 import { HiUser } from "react-icons/hi";
 import { LiaBoxSolid } from "react-icons/lia";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 const AccountDropdown = ({ showDropdown }) => {
+  const navigate = useNavigate()
   return (
     <>
       {showDropdown && (
@@ -13,7 +15,7 @@ const AccountDropdown = ({ showDropdown }) => {
               Sign In
             </Button>
             <div className="flex flex-col space-y-1">
-              <p className="flex items-center gap-3 text-gray-800 text-sm font-medium hover:bg-gray-100 rounded-md p-2 transition duration-200 cursor-pointer">
+              <p className="flex items-center gap-3 text-gray-800 text-sm font-medium hover:bg-gray-100 rounded-md p-2 transition duration-200 cursor-pointer" onClick={() =>navigate('/account')}>
                 <HiUser className="text-xl text-indigo-600" />
                 <span>My Account</span>
               </p>
@@ -21,7 +23,7 @@ const AccountDropdown = ({ showDropdown }) => {
                 <LiaBoxSolid className="text-xl text-indigo-600" />
                 <span>Orders</span>
               </p>
-              <p className="flex items-center gap-3 text-gray-800 text-sm font-medium hover:bg-gray-100 rounded-md p-2 transition duration-200 cursor-pointer">
+              <p className="flex items-center gap-3 text-gray-800 text-sm font-medium hover:bg-gray-100 rounded-md p-2 transition duration-200 cursor-pointer" onClick={() =>navigate('/saved')}>
                 <CiHeart className="text-xl text-indigo-600" />
                 <span>Saved Items</span>
               </p>
