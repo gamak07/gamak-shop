@@ -10,6 +10,7 @@ import Product from "./pages/Product";
 import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
 import ProductDetail from "./pages/ProductDetail";
+import Category from "./pages/Category";
 import Cart from "./pages/Cart";
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -36,6 +37,7 @@ function App() {
               <Route path="/about-us" element={<About />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/products/:productId" element={<ProductDetail />} />
+              <Route path='/category/:categoryName' element={<Category />} />
               <Route path="/cart" element={<Cart />} />
               <Route path='/account' element={<Account />} />
               <Route path="/saved" element={<Saved />} />

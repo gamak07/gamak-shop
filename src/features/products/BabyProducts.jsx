@@ -2,21 +2,35 @@ import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useProducts } from "./useProducts";
 import BabyProductsItem from "./BabyProductsItem";
-import Loading from '../../ui/Loading'
+import Loading from "../../ui/Loading";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import { useNavigate } from "react-router-dom";
+import Button from "../../ui/Button";
 
 const BabyProducts = () => {
   const { isPending, products, error } = useProducts();
-  if (isPending) return <Loading />
+  const navigate = useNavigate();
+  if (isPending) return <Loading />;
 
-  const BabyProducts = products?.products?.filter(product => product.category === 'baby products')
+  const BabyProducts = products?.products?.filter(
+    (product) => product.category === "baby products"
+  );
+
+  const limitedProducts = BabyProducts.slice(0, 10)
+  const categoryName = "baby products";
 
   return (
     <div className="mx-[5rem] my-[2.5rem]">
       <h1 className="bg-indigo-600 text-white text-xl font-bold flex items-center justify-between py-2 px-4 rounded-md shadow-md mb-4">
-        Baby Products <span className="text-sm text-gray-300 cursor-pointer">see all &gt;</span>
+        Baby Products{" "}
+        <Button
+          className="text-sm text-gray-300 cursor-pointer"
+          onClick={() => navigate(`/category/${categoryName}`)}
+        >
+          see all &gt;
+        </Button>
       </h1>
 
       <Swiper
@@ -27,7 +41,7 @@ const BabyProducts = () => {
         pagination={{ clickable: true }}
         className="flex bg-gray-100 px-8 py-6 rounded-md shadow-lg"
       >
-        {BabyProducts.map((product) => (
+        {limitedProducts.map((product) => (
           <SwiperSlide key={product.id}>
             <BabyProductsItem product={product} />
           </SwiperSlide>

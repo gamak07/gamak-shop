@@ -8,21 +8,23 @@ import CartSummary from "./CartSummary";
 
 const CartItem = () => {
   const cart = useSelector((state) => state.cart.items);
-  const counts = useSelector((state) => state.count.items)
+  const counts = useSelector((state) => state.count.items);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleClearCart = () => {
     dispatch(clearCart());
   };
-  
+
   const cartWithCounts = cart.map((item) => ({
     ...item,
     count: counts[item.id] || 1, // Default to 1 if count is not found
   }));
-    
-    const total = cartWithCounts.reduce((acc, cur) => acc + cur.price * cur.count, 0)
 
+  const total = cartWithCounts.reduce(
+    (acc, cur) => acc + cur.price * cur.count,
+    0
+  );
 
   return (
     <div className="relative flex p-6 gap-6">
@@ -49,7 +51,7 @@ const CartItem = () => {
           </Button>
         )}
       </div>
-      <CartSummary total={total} />
+      {cart.length > 0 && <CartSummary total={total} />}
     </div>
   );
 };

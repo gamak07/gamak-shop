@@ -1,22 +1,19 @@
-import { useNavigate } from "react-router-dom";
-import { formatCurrency } from "../../utils/helper";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../carts/cartSlice";
+import { useNavigate } from "react-router-dom"
+import AddToCartButton from "../../ui/AddToCartButton"
+import Rating from "../../ui/Rating"
+import { formatCurrency } from "../../utils/helper"
+import { useDispatch } from "react-redux"
+import { addToCart } from "../carts/cartSlice"
 
-import AddToCartButton from "../../ui/AddToCartButton";
-import Rating from "../../ui/Rating";
+const CategoryList = ({ product }) => {
+    const {id:productId, image, name, price, average_rating, total_ratings} = product
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-const AppliancesItem = ({ product }) => {
-  const { name, image, price, id: productId, average_rating, total_ratings } = product;
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch()
-  
-
-  const handleAddToCart = (e) => {
-    e.stopPropagation()
-    dispatch(addToCart(product))
-  }
+    const handleAddToCart = (e) => {
+        e.stopPropagation()
+        dispatch(addToCart(product))
+      }
   return (
     <div
       className="bg-white rounded-lg shadow-md flex flex-col h-[400px] p-4"
@@ -38,7 +35,7 @@ const AppliancesItem = ({ product }) => {
         <AddToCartButton handleAddToCart={handleAddToCart} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AppliancesItem;
+export default CategoryList

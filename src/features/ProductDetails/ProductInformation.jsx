@@ -5,24 +5,37 @@ import { useNavigate } from "react-router-dom";
 import { formatCurrency } from "../../utils/helper";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../carts/cartSlice";
-import { addToSaved, removeFromSaved } from '../carts/savedSlice';
+import { addToSaved, removeFromSaved } from "../carts/savedSlice";
 
 import Rating from "../../ui/Rating";
 import Loading from "../../ui/Loading";
 import ItemCount from "../../ui/ItemCount";
-import Button from "../../ui/Button";
 import AddToCartButton from "../../ui/AddToCartButton";
 import Wishlist from "../../ui/Wishlist";
 import BuyNowButton from "../../ui/BuyNowButton";
+// import { useQueryClient } from "@tanstack/react-query";
+import { decrement, increment } from "../carts/countSlice";
 
 const ProductInformation = () => {
+  // const queryClient = useQueryClient();
   const { isPending, product } = useProduct();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const savedItems = useSelector((state) => state.saved.items); // Get saved items from Redux store
 
-  if (isPending) return <Loading />;
+  const cart = useSelector((state) => state.cart.items);
+  const { id: cartId } = cart;
+
+  const count = useSelector((state) => state.count.items[cartId] || 1);
+  if (isPending) {return <Loading />};
+  const handleDecrement = () => {
+    dispatch(decrement({ cartId }));
+  };
+  const handleIncrement = () => {
+    dispatch(increment({ cartId }));
+  };
+  
 
   const {
     average_rating,
@@ -35,9 +48,10 @@ const ProductInformation = () => {
     price,
     specifications,
     status,
-    id
+    id,
   } = product.product;
 
+  // queryClient.setQueryData("currentProduct", product.product);
   // Check if the product is saved or not
   const isSaved = savedItems.some((item) => item.id === id);
 
@@ -59,7 +73,10 @@ const ProductInformation = () => {
     <div className="container mx-auto p-6">
       <div className="text-gray-600 mb-4 text-[13px]">
         <span onClick={() => navigate("/products")}>Products</span> /{" "}
-        <span>{category}</span> / <span>{name}</span>
+        <span onClick={() => navigate(`/category/${category}`)}>
+          {category}
+        </span>{" "}
+        / <span>{name}</span>
       </div>
       <div className="flex flex-col p-5 shadow-md md:flex-row md:space-x-8">
         <div className="flex-1">
@@ -73,7 +90,10 @@ const ProductInformation = () => {
           />
           <h1 className="text-2xl font-bold text-gray-800">{name}</h1>
           <p className="text-gray-600 mt-2">{description}</p>
-          <Rating average_rating={average_rating} total_ratings={total_ratings} />
+          <Rating
+            average_rating={average_rating}
+            total_ratings={total_ratings}
+          />
           <div className="flex items-center justify-between mt-4">
             <p className="text-xl font-semibold text-indigo-600">
               {formatCurrency(price)}
@@ -85,8 +105,14 @@ const ProductInformation = () => {
             </span>
           </div>
           <div className="mt-4 flex items-center space-x-2">
-            <ItemCount />
-            <p className="ml-4 text-sm text-gray-500">{itemLeft} left in stock</p>
+            <ItemCount
+              count={count}
+              handleDecrement={handleDecrement}
+              handleIncrement={handleIncrement}
+            />
+            <p className="ml-4 text-sm text-gray-500">
+              {itemLeft} left in stock
+            </p>
           </div>
           <div className="mt-4 flex space-x-4">
             <BuyNowButton />
@@ -97,19 +123,38 @@ const ProductInformation = () => {
               <CiDeliveryTruck className="mr-2 text-indigo-600" /> Free delivery
             </p>
             <p className="flex items-center text-gray-600">
-              <TbTruckReturn className="mr-2 text-indigo-600" /> Delivery returns
+              <TbTruckReturn className="mr-2 text-indigo-600" /> Delivery
+              returns
             </p>
           </div>
         </div>
       </div>
-      <div className="mt-8">
-        <h2 className="text-lg font-semibold text-gray-800">Product Specifications</h2>
-        <ul>
+      <table className="mt-8 w-full table-auto border-separate border-spacing-0.5">
+        {/* Table Header */}
+        <thead>
+          <tr className="bg-gray-100">
+            <th
+              colSpan="2"
+              className="p-3 text-left text-lg font-semibold text-gray-800"
+            >
+              Product Specifications
+            </th>
+          </tr>
+        </thead>
+        {/* Table Body with alternating row colors */}
+        <tbody>
           {specifications.map((spec, index) => (
-            <li key={index} className="text-gray-600 list-disc">{spec}</li>
+            <tr
+              key={index}
+              className={`${
+                index % 2 === 0 ? "bg-white" : "bg-gray-50"
+              } border-t border-gray-300`}
+            >
+              <td className="p-3 text-gray-600">{spec}</td>
+            </tr>
           ))}
-        </ul>
-      </div>
+        </tbody>
+      </table>
     </div>
   );
 };

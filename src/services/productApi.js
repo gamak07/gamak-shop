@@ -15,12 +15,12 @@ export const getProduct = async (id) => {
   return { product, error };
 };
 
-export const getRelatedProducts = async (category, id) => {
+export const getRelatedProducts = async (categoryId, productId) => {
   let { data: products, error } = await supabase
     .from("products")
     .select("*")
-    .eq("category", category)
-    .neq("id", id);
+    .eq("category", categoryId)
+    .neq("id", productId);
 
   return { products, error };
 };
