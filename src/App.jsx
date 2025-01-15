@@ -2,8 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import "./App.css";
+import { Provider } from "react-redux";
+import { store } from "./store";
+
 import AppLayout from "./ui/AppLayout";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
@@ -12,10 +13,13 @@ import ContactUs from "./pages/ContactUs";
 import ProductDetail from "./pages/ProductDetail";
 import Category from "./pages/Category";
 import Cart from "./pages/Cart";
-import { Provider } from "react-redux";
-import { store } from "./store";
 import Account from "./pages/Account";
 import Saved from "./pages/Saved";
+import Signup from './features/authentication/SignupForm'
+
+import 'react-toastify/dist/ReactToastify.css'
+import "./App.css";
+import LoginForm from "./features/authentication/LoginForm";
 
 function App() {
   const queryClient = new QueryClient({
@@ -41,6 +45,8 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path='/account' element={<Account />} />
               <Route path="/saved" element={<Saved />} />
+              <Route path='/signup' element={<Signup />} />
+              <Route path="/login" element={<LoginForm />} />
               <Route path="/orders" element />
             </Route>
             <Route path="*" element />

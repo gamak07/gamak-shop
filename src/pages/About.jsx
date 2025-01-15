@@ -72,7 +72,7 @@ const About = () => {
         {/* Footer Section */}
         <div className="text-center mt-16">
           <p className="text-gray-600 text-sm">
-            &copy; {new Date().getFullYear()} [Your Name]. All rights reserved.
+            &copy; {new Date().getFullYear()} Ganiyu Mubarak. All rights reserved.
           </p>
         </div>
       </div>
