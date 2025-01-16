@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import {ToastContainer} from 'react-toastify'
+import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
@@ -15,11 +15,12 @@ import Category from "./pages/Category";
 import Cart from "./pages/Cart";
 import Account from "./pages/Account";
 import Saved from "./pages/Saved";
-import Signup from './features/authentication/SignupForm'
+import Signup from "./features/authentication/SignupForm";
 
-import 'react-toastify/dist/ReactToastify.css'
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import LoginForm from "./features/authentication/LoginForm";
+import Checkout from "./features/payment/Checkout";
 
 function App() {
   const queryClient = new QueryClient({
@@ -41,12 +42,13 @@ function App() {
               <Route path="/about-us" element={<About />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/products/:productId" element={<ProductDetail />} />
-              <Route path='/category/:categoryName' element={<Category />} />
+              <Route path="/category/:categoryName" element={<Category />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path='/account' element={<Account />} />
+              <Route path="/account" element={<Account />} />
               <Route path="/saved" element={<Saved />} />
-              <Route path='/signup' element={<Signup />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<LoginForm />} />
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="/orders" element />
             </Route>
             <Route path="*" element />

@@ -30,7 +30,7 @@ const AccountDropdown = ({ showDropdown }) => {
                 className="w-full bg-indigo-600 text-white hover:bg-indigo-500 transition duration-300 py-2 rounded-md"
                 onClick={() => navigate("/signup")}
               >
-                Sign In
+                Sign Up
               </Button>
             )}
             <div className="flex flex-col space-y-1">

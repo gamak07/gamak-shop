@@ -1,3 +1,5 @@
+import UserProfile from "../features/account/UserProfile";
+
 const Account = () =>{
    
   return (
@@ -5,16 +7,7 @@ const Account = () =>{
       <h1 className="text-2xl font-bold mb-4">My Account</h1>
 
       {/* User Profile */}
-      <section className="bg-white p-4 rounded-lg shadow-md mb-6">
-        <h2 className="text-xl font-semibold mb-2">Profile Information</h2>
-        <div className="flex items-center">
-          <img src="/path/to/profile-pic.jpg" alt="Profile" className="w-16 h-16 rounded-full mr-4" />
-          <div>
-            <p className="text-lg">John Doe</p>
-            <p className="text-sm text-gray-600">johndoe@example.com</p>
-          </div>
-        </div>
-      </section>
+      <UserProfile />
 
       {/* Order History */}
       <section className="bg-white p-4 rounded-lg shadow-md mb-6">

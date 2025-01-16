@@ -1,7 +1,9 @@
 import { formatCurrency } from "../../utils/helper";
 import Button from "../../ui/Button";
+import { useNavigate } from "react-router-dom";
 
 const CartSummary = ({ total }) => {
+  const navigate = useNavigate();
   return (
     <div className="sticky top-20 min-w-[15rem] h-fit bg-white rounded-lg shadow-md p-4 mt-[6.5rem]">
       <h2 className="text-xl font-bold mb-4">Cart Summary</h2>
@@ -17,7 +19,10 @@ const CartSummary = ({ total }) => {
         <p className="font-bold">Total:</p>
         <p className="font-semibold text-indigo-600">{formatCurrency(total)}</p>
       </div>
-      <Button className="bg-indigo-600 text-softWhite font-bold text-[15px] py-2 w-full rounded-md">
+      <Button
+        className="bg-indigo-600 text-softWhite font-bold text-[15px] py-2 w-full rounded-md"
+        onClick={() => navigate("/checkout", {state: {total}})}
+      >
         Checkout ({formatCurrency(total)})
       </Button>
     </div>
