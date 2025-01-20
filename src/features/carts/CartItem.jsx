@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CartList from "./CartList";
 import Button from "../../ui/Button";
 import { MdKeyboardBackspace } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
 import { clearCart } from "./cartSlice";
 import CartSummary from "./CartSummary";
 

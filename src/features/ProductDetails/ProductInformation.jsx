@@ -115,7 +115,7 @@ const ProductInformation = () => {
             </p>
           </div>
           <div className="mt-4 flex space-x-4">
-            <BuyNowButton />
+            <BuyNowButton price={price} />
             <AddToCartButton handleAddToCart={handleAddToCart} />
           </div>
           <div className="mt-6 space-y-2">

@@ -6,7 +6,8 @@ const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const totalAmount = location.state?.total || 0;
+  const itemPrice = location.state?.price || 0;
+  const totalAmount = location.state?.total || itemPrice;
   const [formData, setFormData] = useState({
     name: "",
     email: "",

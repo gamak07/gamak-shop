@@ -1,8 +1,15 @@
+import Categories from "../features/home/Categories";
+import FeaturedProducts from "../features/home/FeaturedProducts";
+import HeroSection from "../features/home/HeroSection";
 
 const Home = () => {
   return (
-    
-    <div>home</div>
+    <>
+      <div>wejdqicaojwicna</div>
+      <HeroSection />
+      <FeaturedProducts />
+      <Categories />
+    </>
   );
 
 }

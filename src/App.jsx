@@ -21,6 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import LoginForm from "./features/authentication/LoginForm";
 import Checkout from "./features/payment/Checkout";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 function App() {
   const queryClient = new QueryClient({
@@ -36,6 +37,13 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<AppLayout />}>
+              <Route element={<ProtectedRoute />}>
+                <Route path="/account" element={<Account />} />
+                <Route path="/saved" element={<Saved />} />
+                <Route path="/checkout" element={<Checkout />} />
+                {/* <Route path="/orders" element /> */}
+              </Route>
+
               <Route index element={<Navigate replace to="/" />} />
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Product />} />
@@ -44,12 +52,8 @@ function App() {
               <Route path="/products/:productId" element={<ProductDetail />} />
               <Route path="/category/:categoryName" element={<Category />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/account" element={<Account />} />
-              <Route path="/saved" element={<Saved />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<LoginForm />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/orders" element />
             </Route>
             <Route path="*" element />
           </Routes>

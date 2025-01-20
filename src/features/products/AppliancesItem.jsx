@@ -5,9 +5,15 @@ import { addToCart } from "../carts/cartSlice";
 
 import AddToCartButton from "../../ui/AddToCartButton";
 import Rating from "../../ui/Rating";
+// import { useAddToCart } from "../carts/useAddToCart";
+// import { useUser } from "../authentication/useUser";
+// import { useAddToCart } from "../carts/useAddToCart";
 
 const AppliancesItem = ({ product }) => {
   const { name, image, price, id: productId, average_rating, total_ratings } = product;
+  // const { addSignInUserCart } = useAddToCart()
+  // const {isAuthenticated} = useUser()
+  // const {addSignInUserCart} = useAddToCart()
 
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -16,6 +22,12 @@ const AppliancesItem = ({ product }) => {
   const handleAddToCart = (e) => {
     e.stopPropagation()
     dispatch(addToCart(product))
+
+    // if (isAuthenticated) {
+    //   addSignInUserCart(isAuthenticated, productId)
+    // }
+
+
   }
   return (
     <div
