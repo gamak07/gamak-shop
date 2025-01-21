@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "./cartSlice";
 import { decrement, increment } from "./countSlice";
 
+
 const CartList = ({ product }) => {
     const { image, name, price, itemLeft, id } = product;
     const dispatch = useDispatch()
