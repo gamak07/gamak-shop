@@ -1,3 +1,6 @@
+// Cross-check your login form!
+// Include an eye-opener to your password field to help users confirm password input.
+
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import { Link } from "react-router-dom";

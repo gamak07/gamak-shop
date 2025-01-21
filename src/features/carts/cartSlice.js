@@ -1,4 +1,6 @@
-
+// Create a seperate folder named store 
+// Include all your files implementing slice in the "store" folder
+// Avoid writing logic in the slice file !Important
 
 
 import { createSlice } from "@reduxjs/toolkit";
