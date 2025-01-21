@@ -1,0 +1,18 @@
+Modify the products folder 
+It's a bad practice to have multiple files for different categories, rather create a reusable component 
+using ephemeral state such as; props to pass required properties. 
+E.g Check Products.js && ProductItem.js files for guides. 
+
+You can delete the created folder afterwards when concept has been fully grasped. 
+
+To fix the cart issues, store cart item by using the customer userId created.
+The array might look like this: 
+
+[{ 
+    userId: 1234, 
+    cartItem: [{ 
+        category: appliances, 
+    }]
+}]
+
+The illustration above is just a sample
