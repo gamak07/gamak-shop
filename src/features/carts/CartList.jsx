@@ -5,14 +5,25 @@ import Button from "../../ui/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "./cartSlice";
 import { decrement, increment } from "./countSlice";
+import { useDeleteAuthCart } from "./useDeleteAuthcart";
 
 
-const CartList = ({ product }) => {
-    const { image, name, price, itemLeft, id } = product;
+const CartList = ({ product, userId, cart }) => {
+  const {deleteCart} = useDeleteAuthCart()
+  const { image, name, price, itemLeft, id } = product;
+  
+  const cartItem = cart.find(item => item.id === id);
+  const authCartId = cartItem?.id
+  
     const dispatch = useDispatch()
 
-    const handleDelete = (id) => {
-        dispatch(removeFromCart(id))
+  const handleDelete = (id) => {
+    if (userId) {
+      deleteCart({userId, authCartId})
+    }
+    else {
+      dispatch(removeFromCart(id))
+    }
     }
 
   const count = useSelector((state) => state.count.items[id] || 1);

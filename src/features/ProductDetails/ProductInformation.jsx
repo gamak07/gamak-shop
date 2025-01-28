@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { formatCurrency } from "../../utils/helper";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../carts/cartSlice";
-import { addToSaved, removeFromSaved } from "../carts/savedSlice";
+// import { addToSaved, removeFromSaved } from "../carts/savedSlice";
 
 import Rating from "../../ui/Rating";
 import Loading from "../../ui/Loading";
@@ -15,14 +15,24 @@ import Wishlist from "../../ui/Wishlist";
 import BuyNowButton from "../../ui/BuyNowButton";
 // import { useQueryClient } from "@tanstack/react-query";
 import { decrement, increment } from "../carts/countSlice";
+import { useUser } from "../authentication/useUser";
+import { useSaved } from "../carts/useSaved";
+import { useAddToSaved } from "../carts/useAddToSaved";
+import { useDeleteSaved } from "../carts/useDeleteSaved";
+// import { deleteAuthSaved } from "../../services/savedApi";
 
 const ProductInformation = () => {
   // const queryClient = useQueryClient();
   const { isPending, product } = useProduct();
+  const { user, isAuthenticated } = useUser()
+  const {addSavedItem} = useAddToSaved()
+  const {deleteSaved} = useDeleteSaved()
+  const userId = user?.id
+  const { saved } = useSaved(userId)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const savedItems = useSelector((state) => state.saved.items); // Get saved items from Redux store
+  // const savedItems = useSelector((state) => state.saved.items); // Get saved items from Redux store
 
   const cart = useSelector((state) => state.cart.items);
   const { id: cartId } = cart;
@@ -48,26 +58,50 @@ const ProductInformation = () => {
     price,
     specifications,
     status,
-    id,
+    id: productId,
   } = product.product;
+
 
   // queryClient.setQueryData("currentProduct", product.product);
   // Check if the product is saved or not
-  const isSaved = savedItems.some((item) => item.id === id);
+  const isSaved = saved?.some((item) => item.product_id === productId) || false;
 
   // Handle add/remove from saved list
   const handleAddToSaved = () => {
-    dispatch(addToSaved(product.product));
+    // dispatch(addToSaved(product.product));
+    addSavedItem({ userId, productId })
+    console.log('add')
   };
 
   const handleRemoveFromSaved = () => {
-    dispatch(removeFromSaved(id));
+    const savedItem = saved.find((item) => item.product_id === productId)
+    // dispatch(removeFromSaved(id));
+    deleteSaved({ userId, authSavedId: savedItem.id })
+    console.log('remove')
+    
   };
 
   // Handle add to cart
-  const handleAddToCart = () => {
-    dispatch(addToCart(product.product));
+  // const handleAddToCart = () => {
+  //   dispatch(addToCart(product.product));
+  // };
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation(); // Prevent navigation
+    dispatch(addToCart(product));
   };
+
+  const renderAddToCartButton = () => {
+    if (isAuthenticated) {
+      return (
+        <AddToCartButton
+          userId={user.id}
+          productId={productId}
+          quantity={1}
+        />
+      );
+    }
+  }
 
   return (
     <div className="container mx-auto p-6">
@@ -114,9 +148,9 @@ const ProductInformation = () => {
               {itemLeft} left in stock
             </p>
           </div>
-          <div className="mt-4 flex space-x-4">
+          <div className="mt-4 flex gap-2 w-full">
             <BuyNowButton price={price} />
-            <AddToCartButton handleAddToCart={handleAddToCart} />
+            {isAuthenticated ? renderAddToCartButton() : <AddToCartButton handleAddToCart={handleAddToCart} />}
           </div>
           <div className="mt-6 space-y-2">
             <p className="flex items-center text-gray-600">

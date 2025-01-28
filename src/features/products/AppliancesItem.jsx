@@ -5,30 +5,42 @@ import { addToCart } from "../carts/cartSlice";
 
 import AddToCartButton from "../../ui/AddToCartButton";
 import Rating from "../../ui/Rating";
-// import { useAddToCart } from "../carts/useAddToCart";
-// import { useUser } from "../authentication/useUser";
-// import { useAddToCart } from "../carts/useAddToCart";
+import { useUser } from "../authentication/useUser";
 
 const AppliancesItem = ({ product }) => {
-  const { name, image, price, id: productId, average_rating, total_ratings } = product;
-  // const { addSignInUserCart } = useAddToCart()
-  // const {isAuthenticated} = useUser()
-  // const {addSignInUserCart} = useAddToCart()
+  const { name, image, price, id: productId, average_rating, total_ratings } =
+    product;
+  const { isAuthenticated, user } = useUser();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
 
   const handleAddToCart = (e) => {
-    e.stopPropagation()
-    dispatch(addToCart(product))
+    e.stopPropagation(); // Prevent navigation
+    dispatch(addToCart(product));
+  };
 
-    // if (isAuthenticated) {
-    //   addSignInUserCart(isAuthenticated, productId)
-    // }
+  const renderAddToCartButton = () => {
+    if (isAuthenticated) {
+      return (
+        <AddToCartButton
+          userId={user.id}
+          productId={productId}
+          quantity={1}
+        />
+      );
+    }
 
+    return (
+      <button
+        className="bg-indigo-600 text-white py-2 mt-2 rounded-md hover:bg-indigo-500 transition duration-300 w-full"
+        onClick={handleAddToCart}
+      >
+        Add to Cart
+      </button>
+    );
+  };
 
-  }
   return (
     <div
       className="bg-white rounded-lg shadow-md flex flex-col h-[400px] p-4"
@@ -45,9 +57,12 @@ const AppliancesItem = ({ product }) => {
         <div>
           <h1 className="text-lg font-bold text-gray-800">{name}</h1>
           <p className="text-md text-gray-600">{formatCurrency(price)}</p>
-          <Rating average_rating={average_rating} total_ratings={total_ratings} />
+          <Rating
+            average_rating={average_rating}
+            total_ratings={total_ratings}
+          />
         </div>
-        <AddToCartButton handleAddToCart={handleAddToCart} />
+        {renderAddToCartButton()}
       </div>
     </div>
   );

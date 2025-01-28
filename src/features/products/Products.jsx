@@ -2,7 +2,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Loading from "../../ui/Loading";
 import { useProducts } from "./useProducts";
-import ProductItem from "./ProductItem.js";
+import ProductItem from "./ProductItem";
 
 import { useNavigate } from "react-router-dom";
 import "swiper/css";

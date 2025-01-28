@@ -5,7 +5,7 @@ import Books from "../features/products/Books";
 import Electronics from "../features/products/Electronics";
 import Fashion from "../features/products/Fashion";
 import PetSupplies from "../features/products/PetSupplies";
-import Products from "../features/products/Products";
+// import Products from "../features/products/Products";
 import Sports from "../features/products/Sports";
 import ToyGames from "../features/products/ToyGames";
 import VideoGames from "../features/products/VideoGames";
@@ -18,13 +18,13 @@ import VideoGames from "../features/products/VideoGames";
 
 // const productCategoryItems = [
 //   {
-//     name: "Books",
-//     category: "books",
+//     name: "Sex",
+//     category: "Fucking",
 //   },
-//   {
-//     name: "Applicances",
-//     category: "appliances",
-//   },
+//   // {
+//   //   name: "Applicances",
+//   //   category: "appliances",
+//   // },
 // ];
 
 const Product = () => {
@@ -32,7 +32,7 @@ const Product = () => {
     <>
       {/* {productCategoryItems.map((x) => {
         return (
-          <Products productCategory={x.category} productName={x.category} />
+          <Products productCategory={x.name} productName={x.category} />
         );
       })} */}
       <Appliances />

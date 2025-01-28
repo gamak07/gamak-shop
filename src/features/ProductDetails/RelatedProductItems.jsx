@@ -10,7 +10,7 @@ const RelatedProductItems = ({ related }) => {
       className="py-2 px-2 hover:scale-105"
       onClick={() => navigate(`/products/${productId}`)} // Use the related product's ID for navigation
     >
-      <img src={image} alt={name} />
+      <img src={image} alt={name} className="h-[12rem] w-full" />
       <div className="py-3">
         <h1>{name.slice(0, 20)}...</h1>
         <p className="text-indigo-600 font-bold">{formatCurrency(price)}</p>

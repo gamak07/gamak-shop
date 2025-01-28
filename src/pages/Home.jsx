@@ -5,7 +5,6 @@ import HeroSection from "../features/home/HeroSection";
 const Home = () => {
   return (
     <>
-      <div>wejdqicaojwicna</div>
       <HeroSection />
       <FeaturedProducts />
       <Categories />

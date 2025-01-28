@@ -3,15 +3,17 @@ import Button from "../../ui/Button";
 import AddToCartButton from "../../ui/AddToCartButton";
 import { formatCurrency } from "../../utils/helper";
 import { useDispatch } from "react-redux";
-import { removeFromSaved } from "./savedSlice";
 import BuyNowButton from "../../ui/BuyNowButton";
 import { addToCart } from "./cartSlice";
+import { useDeleteSaved } from "./useDeleteSaved";
 
-const SavedList = ({ item }) => {
-  const { image, id, name, price } = item;
+const SavedList = ({ item, userId }) => {
+  const { id, products } = item;
+  console.log(id)
+  const {deleteSaved} = useDeleteSaved()
   const dispatch = useDispatch();
-  const handleDelete = (id) => {
-    dispatch(removeFromSaved(id));
+  const handleDelete = () => {
+    deleteSaved({userId, authSavedId: id});
     };
     
     const handleAddToCart = () => {
@@ -22,26 +24,26 @@ const SavedList = ({ item }) => {
     <div className="w-full flex justify-between flex-row bg-white p-4 rounded-lg border-[5px] shadow-md mb-6">
       <div className="flex gap-5">
         <img
-          src={image}
-          alt={name}
+          src={products.image}
+          alt={products.name}
           className="w-[6rem] h-[6rem]  object-cover rounded-md mb-4 "
         />
         <div className="flex flex-col justify-between">
-          <h1 className="text-lg font-semibold mb-2">{name}</h1>
+          <h1 className="text-lg font-semibold mb-2">{products.name}</h1>
           <p className="text-xl font-bold text-gray-900 mb-4">
-            {formatCurrency(price)}
+            {formatCurrency(products.price)}
           </p>
         </div>
       </div>
       <div className="flex flex-col items-end gap-4 ">
         <Button
           className="text-red-500 hover:text-red-700 flex items-center"
-          onClick={() => handleDelete(id)}
+          onClick={handleDelete}
         >
           <HiTrash className="mr-1" /> Remove
         </Button>
         <div className="min-w-[20rem] flex gap-10" >
-          <AddToCartButton handleAddToCart={handleAddToCart} />
+          <AddToCartButton handleAddToCart={()=>handleAddToCart(id)} />
           <BuyNowButton />
         </div>
       </div>
@@ -50,4 +52,4 @@ const SavedList = ({ item }) => {
 };
 
 export default SavedList;
-2;
+
