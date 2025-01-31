@@ -22,7 +22,7 @@ const Checkout = () => {
   };
 
   const handleSuccess = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   const componentProps = {

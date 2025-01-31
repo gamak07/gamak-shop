@@ -1,8 +1,10 @@
 import {useMutation } from '@tanstack/react-query'
 import { signup as signupApi } from '../../services/authApi'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 export const useSignup = () => {
+    const navigate = useNavigate()
     const {mutate: signup, isPending } = useMutation({
         mutationFn: signupApi,
         onSuccess: (user) => {
@@ -15,7 +17,8 @@ export const useSignup = () => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-              })
+            })
+            navigate('login')
         }
     })
 

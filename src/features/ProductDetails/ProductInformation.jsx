@@ -70,15 +70,12 @@ const ProductInformation = () => {
   const handleAddToSaved = () => {
     // dispatch(addToSaved(product.product));
     addSavedItem({ userId, productId })
-    console.log('add')
   };
 
   const handleRemoveFromSaved = () => {
     const savedItem = saved.find((item) => item.product_id === productId)
     // dispatch(removeFromSaved(id));
     deleteSaved({ userId, authSavedId: savedItem.id })
-    console.log('remove')
-    
   };
 
   // Handle add to cart

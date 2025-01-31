@@ -1,24 +1,23 @@
 import { useForm } from "react-hook-form";
 import { useSignup } from "./useSignup";
 
-import Button from '../../ui/Button'
+import Button from "../../ui/Button";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleSignin } from "./useGoogleSignin";
 
 function SignupForm() {
   const { signup, isPending } = useSignup();
-  const {loginWithGoogle} = useGoogleSignin()
+  const { loginWithGoogle } = useGoogleSignin();
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
-  const onSubmit = ({ fullName, password, email }) => {
-    signup({ fullName, password, email }, { onSettled: reset });
+  const onSubmit = ({ fullName, password, email, phone, address }) => {
+    signup({ fullName, password, email, phone, address }, { onSettled: reset });
   };
-  
 
   const handleGoogleSignIn = () => {
     // Add Google Sign-In logic here
-    loginWithGoogle()
+    loginWithGoogle();
   };
 
   return (
@@ -61,6 +60,40 @@ function SignupForm() {
           <span>{errors?.fullName?.message}</span>
         </div>
         <div className="mb-4">
+          <label htmlFor="address" className="block font-bold text-softWhite">
+            Address
+          </label>
+          <input
+            type="text"
+            name="address"
+            id="address"
+            className="w-full p-2 border rounded mt-2"
+            {...register("address", {
+              required: "This field is required",
+            })}
+          />
+          <span>{errors?.fullName?.message}</span>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="email" className="block font-bold text-softWhite">
+            Phone No
+          </label>
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            className="w-full p-2 border rounded mt-2"
+            {...register("phone", {
+              required: "This field is required",
+              pattern: {
+                value: /^(?:\+234|234|0)(7|8|9)[01]\d{8}$/,
+                message: "Please enter a valid phone number",
+              },
+            })}
+          />
+          <span>{errors?.fullName?.message}</span>
+        </div>
+        <div className="mb-4">
           <label htmlFor="password" className="block font-bold text-softWhite">
             Password
           </label>
@@ -80,7 +113,10 @@ function SignupForm() {
           <span>{errors?.fullName?.message}</span>
         </div>
         <div className="mb-4">
-          <label htmlFor="confirmPassword" className="block font-bold text-softWhite">
+          <label
+            htmlFor="confirmPassword"
+            className="block font-bold text-softWhite"
+          >
             Confirm Password
           </label>
           <input
@@ -109,7 +145,10 @@ function SignupForm() {
           onClick={handleGoogleSignIn}
           className="flex items-center justify-center gap-10 w-full bg-softWhite text-indigo-600 py-2 px-4 font-bold rounded"
         >
-          Sign In with Google <span><FcGoogle /></span>
+          Sign In with Google{" "}
+          <span>
+            <FcGoogle />
+          </span>
         </Button>
       </div>
       <p className="mt-4 text-center">
@@ -118,7 +157,6 @@ function SignupForm() {
           Log In
         </Link>
       </p>
-      
     </div>
   );
 }

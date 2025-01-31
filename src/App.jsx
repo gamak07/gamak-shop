@@ -22,6 +22,7 @@ import "./App.css";
 import LoginForm from "./features/authentication/LoginForm";
 import Checkout from "./features/payment/Checkout";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import NotFound from "./ui/NotFound";
 
 function App() {
   const queryClient = new QueryClient({
@@ -44,8 +45,8 @@ function App() {
                 {/* <Route path="/orders" element /> */}
               </Route>
 
-              <Route index element={<Navigate replace to="/" />} />
-              <Route path="/" element={<Home />} />
+              <Route index element={<Navigate replace to="/home" />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/products" element={<Product />} />
               <Route path="/about-us" element={<About />} />
               <Route path="/contact-us" element={<ContactUs />} />
@@ -55,7 +56,7 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<LoginForm />} />
             </Route>
-            <Route path="*" element />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
         <ToastContainer />

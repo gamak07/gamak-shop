@@ -1,4 +1,6 @@
+import AddressManagement from "../features/account/AddressManagement";
 import UserProfile from "../features/account/UserProfile";
+import Password from '../features/account/password'
 
 const Account = () =>{
    
@@ -25,19 +27,10 @@ const Account = () =>{
       </section>
 
       {/* Address Management */}
-      <section className="bg-white p-4 rounded-lg shadow-md mb-6">
-        <h2 className="text-xl font-semibold mb-2">Address Management</h2>
-        <p>123 Main Street, Apt 101</p>
-        <button className="mt-2 text-blue-600 hover:underline">Edit Address</button>
-      </section>
+      <AddressManagement />
 
       {/* Account Settings */}
-      <section className="bg-white p-4 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold mb-2">Account Settings</h2>
-        <button className="text-blue-600 hover:underline">Change Password</button>
-        <br />
-        <button className="text-blue-600 hover:underline">Manage Notifications</button>
-      </section>
+      <Password />
     </div>
   );
 };
