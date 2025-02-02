@@ -1,15 +1,20 @@
 import { formatCurrency } from "../utils/helper";
 import { useNavigate } from "react-router-dom";
 
-const Suggestion = ({ suggest }) => {
+const Suggestion = ({ suggest, onClick }) => {
   const { name, image, price, id: productId } = suggest;
   const navigate = useNavigate();
   const nameShort = name.length > 15 ? `${name.slice(0, 15)}...` : name;
 
+  const handleClick = () => {
+    navigate(`/products/${productId}`)
+    onClick()
+  }
+
   return (
     <div
       className="flex items-center justify-between w-full bg-white rounded-lg shadow-md p-4 transition-transform transform hover:scale-105"
-      onClick={() => navigate(`/products/${productId}`)}
+      onClick={handleClick}
     >
       <img
         src={image}

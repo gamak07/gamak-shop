@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/authentication/useUser";
 import useLogout from "../features/authentication/useLogout";
 
-const AccountDropdown = ({ showDropdown }) => {
+const AccountDropdown = ({ showDropdown, setShowDropDown }) => {
   const navigate = useNavigate();
   const { logout } = useLogout();
   const { isPending, user } = useUser();
@@ -27,7 +27,7 @@ const AccountDropdown = ({ showDropdown }) => {
             ) : (
               <Button
                 className="w-full bg-indigo-600 text-white hover:bg-indigo-500 transition duration-300 py-2 rounded-md"
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate("/signup") }
               >
                 Sign Up
               </Button>
@@ -35,21 +35,21 @@ const AccountDropdown = ({ showDropdown }) => {
             <div className="flex flex-col space-y-1">
               <p
                 className="flex items-center gap-3 text-gray-800 text-sm font-medium hover:bg-gray-100 rounded-md p-2 transition duration-200 cursor-pointer"
-                onClick={() => navigate("/account")}
+                onClick={() => { navigate("/account"), setShowDropDown(false)}}
               >
                 <HiUser className="text-xl text-indigo-600" />
                 <span>My Account</span>
               </p>
               <p
                 className="flex items-center gap-3 text-gray-800 text-sm font-medium hover:bg-gray-100 rounded-md p-2 transition duration-200 cursor-pointer"
-                onClick={() => navigate("/orders")}
+                onClick={() => { navigate("/orders"), setShowDropDown(false)}}
               >
                 <LiaBoxSolid className="text-xl text-indigo-600" />
                 <span>Orders</span>
               </p>
               <p
                 className="flex items-center gap-3 text-gray-800 text-sm font-medium hover:bg-gray-100 rounded-md p-2 transition duration-200 cursor-pointer"
-                onClick={() => navigate("/saved")}
+                onClick={() => { navigate("/saved"), setShowDropDown(false)}}
               >
                 <CiHeart className="text-xl text-indigo-600" />
                 <span>Saved Items</span>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useProducts } from '../features/products/useProducts';
 import { useSearchParams } from "react-router-dom";
 import Suggestion from "./Suggestion";
+import { useDetectClick } from "../hooks/useDetectClick";
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
@@ -9,6 +10,12 @@ const SearchBar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   
   const { products } = useProducts();
+
+  const resetSearch = () => {
+    setQuery('')
+    setSuggestions([])
+  }
+  const ref = useDetectClick(resetSearch)
 
   const handleInputChange = (e) => {
     const newQuery = e.target.value;
@@ -25,8 +32,7 @@ const SearchBar = () => {
 
   const handleSearch = () => {
     setSearchParams({ query });
-    setQuery('');
-    setSuggestions([]);
+    resetSearch()
   };
 
   const handleKeyPress = (e) => {
@@ -36,7 +42,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="relative flex items-center rounded-md shadow-sm p-2">
+    <div className="relative flex items-center rounded-md shadow-sm p-2" ref={ref}>
       <input
         type="text"
         value={query}
@@ -54,7 +60,7 @@ const SearchBar = () => {
       {suggestions.length > 0 && (
         <div className='absolute flex flex-col min-w-[25rem] gap-5 top-[3.5rem] w-fit bg-gray-600 p-5'>
           {suggestions.map((suggest) => (
-            <Suggestion key={suggest.id} suggest={suggest} />
+            <Suggestion key={suggest.id} suggest={suggest} onClick={resetSearch} />
           ))}
         </div>
       )}
