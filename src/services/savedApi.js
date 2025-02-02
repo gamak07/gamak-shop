@@ -4,7 +4,7 @@ import supabase from "./supabase";
 export const getSaved = async (userId) => {
   let { data, error } = await supabase
     .from("saved")
-    .select("*, products(name, price, image)")
+    .select("*, products(name, price, image, id)")
     .eq("user_id", userId);
 
   if (error) throw new Error(error.message);

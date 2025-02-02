@@ -6,6 +6,7 @@ import { addToCart } from "../carts/cartSlice";
 import AddToCartButton from "../../ui/AddToCartButton";
 import Rating from "../../ui/Rating";
 import { useUser } from "../authentication/useUser";
+import Button from "../../ui/Button";
 
 const AppliancesItem = ({ product }) => {
   const { name, image, price, id: productId, average_rating, total_ratings } =
@@ -32,12 +33,12 @@ const AppliancesItem = ({ product }) => {
     }
 
     return (
-      <button
+      <Button
         className="bg-indigo-600 text-white py-2 mt-2 rounded-md hover:bg-indigo-500 transition duration-300 w-full"
         onClick={handleAddToCart}
       >
         Add to Cart
-      </button>
+      </Button>
     );
   };
 

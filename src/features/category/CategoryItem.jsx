@@ -96,12 +96,6 @@ const CategoryItem = () => {
           </div>
           <Pagination
             count={totalProducts}
-            // currentPage={currentPage}
-            // pageCount={pageCount}
-            // onPageChange={(page) => {
-            //   searchParams.set("page", page);
-            //   setSearchParams(searchParams);
-            // }}
           />
         </main>
       </div>

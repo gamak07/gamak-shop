@@ -33,8 +33,10 @@ const CartItem = () => {
 
   const cartWithCounts = cartData.map((item) => ({
     ...item,
-    count: counts[item.product_id || item.id] || 1, // Handle guest and authenticated cart IDs
+    count: item.quantity || counts[item.product_id || item.id] || 1, // Handle guest and authenticated cart IDs
   }));
+
+  
 
   const total = cartWithCounts.reduce(
     (acc, cur) => acc + (cur.price || 0) * cur.count, // Ensure `price` is handled correctly

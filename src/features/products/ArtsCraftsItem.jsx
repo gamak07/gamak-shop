@@ -16,6 +16,7 @@ const ArtsCraftsItem = ({ product }) => {
     id: productId,
   } = product;
 
+
   const { isAuthenticated, user } = useUser();
 
   const navigate = useNavigate();

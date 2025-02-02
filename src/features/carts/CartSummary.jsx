@@ -21,7 +21,7 @@ const CartSummary = ({ total }) => {
       </div>
       <Button
         className="bg-indigo-600 text-softWhite font-bold text-[15px] py-2 w-full rounded-md"
-        onClick={() => navigate("/checkout", {state: {total}})}
+        onClick={() => navigate("/checkout", {state: {total, fromCart: true}})}
       >
         Checkout ({formatCurrency(total)})
       </Button>

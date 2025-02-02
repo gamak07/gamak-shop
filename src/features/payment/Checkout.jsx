@@ -1,20 +1,83 @@
 import { useState } from "react";
 import { PaystackButton } from "react-paystack";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useCreateOrder } from "../order/useCreateOrder";
+import { useUser } from "../authentication/useUser";
+// import { useProducts } from '../products/useProducts'
+import { useCart } from "../carts/useCart";
+import { useClearAuthCart } from "../carts/useClearAuthCart";
+import { useUpdateStock } from "../products/useUpdateStock";
 
 const Checkout = () => {
+  const { order } = useCreateOrder();
+  const { user } = useUser();
+  const { carts } = useCart(user?.id);
+  const { clearCart } = useClearAuthCart();
+  const { update } = useUpdateStock();
+  // const { products } = useProducts()
+
   const navigate = useNavigate();
   const location = useLocation();
 
+  const isFromCart = location.state?.fromCart;
+  const productId = location.state?.productId;
   const itemPrice = location.state?.price || 0;
   const totalAmount = location.state?.total || itemPrice;
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
+    name: user.user_metadata.fullName,
+    email: user.email,
+    phone: user.user_metadata.phone,
+    address: user.app_metadata.address,
     amount: totalAmount,
   });
+
+  const today = new Date();
+  const deliveryDate = new Date(today);
+  deliveryDate.setDate(today.getDate() + 2);
+
+  const handleOrders = () => {
+    if (isFromCart) {
+      // Handle cart checkout
+      const orderItems = carts.map((cartItem) => ({
+        user_id: user?.id,
+        product_id: cartItem.id,
+        quantity: cartItem.quantity,
+        status: "pending",
+        order_id: `${Date.now()}`,
+        delivery_date: deliveryDate.toISOString(),
+      }));
+
+      order(orderItems);
+    } else {
+      // Handle direct product checkout
+      const orderItem = {
+        user_id: user?.id,
+        product_id: productId,
+        quantity: 1,
+        status: "pending",
+        order_id: `${Date.now()}`,
+        delivery_date: deliveryDate.toISOString(),
+      };
+
+      order([orderItem]);
+    }
+  };
+
+  const handleStockUpdate = () => {
+    if (isFromCart) {
+      for (const cartItem of carts) {
+        console.log(cartItem.product_id);
+        update({ productId: cartItem.product_id, quantity: cartItem.quantity, type:'add' });
+      }
+    } else {
+      console.log(productId);
+      update({ productId: productId, quantity: 1, type:'deduct' });
+    }
+  };
+
+  const handleClearCart = () => {
+    clearCart(user?.id);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +85,9 @@ const Checkout = () => {
   };
 
   const handleSuccess = () => {
+    handleClearCart();
+    handleOrders();
+    handleStockUpdate();
     navigate("/home");
   };
 

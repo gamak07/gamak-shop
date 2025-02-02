@@ -8,9 +8,8 @@ import useLogout from "../features/authentication/useLogout";
 
 const AccountDropdown = ({ showDropdown }) => {
   const navigate = useNavigate();
-  const {logout} = useLogout()
+  const { logout } = useLogout();
   const { isPending, user } = useUser();
-  
 
   return (
     <>
@@ -21,7 +20,7 @@ const AccountDropdown = ({ showDropdown }) => {
               <Button
                 className="w-full bg-indigo-600 text-white hover:bg-indigo-500 transition duration-300 py-2 rounded-md"
                 disabled={isPending}
-                onClick={()=>logout()}
+                onClick={() => logout()}
               >
                 Logout
               </Button>
@@ -41,7 +40,10 @@ const AccountDropdown = ({ showDropdown }) => {
                 <HiUser className="text-xl text-indigo-600" />
                 <span>My Account</span>
               </p>
-              <p className="flex items-center gap-3 text-gray-800 text-sm font-medium hover:bg-gray-100 rounded-md p-2 transition duration-200 cursor-pointer">
+              <p
+                className="flex items-center gap-3 text-gray-800 text-sm font-medium hover:bg-gray-100 rounded-md p-2 transition duration-200 cursor-pointer"
+                onClick={() => navigate("/orders")}
+              >
                 <LiaBoxSolid className="text-xl text-indigo-600" />
                 <span>Orders</span>
               </p>

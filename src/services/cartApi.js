@@ -12,6 +12,23 @@ export const getCart = async (userId) => {
   return data;
 };
 
+export const updateCartQuantity = async (userId, productId, newQuantity) => {
+  
+  const { data, error } = await supabase
+    .from("carts")
+    .update({ quantity: newQuantity })
+    .eq("user_id", userId)
+    .eq("id", productId);
+
+  if (error) {
+    console.error("Error updating cart quantity:", error);
+    throw error;
+  }
+
+  return data
+};
+
+
 // Function to add an item to the cart
 export const addItemToCart = async (userId, productId, quantity) => {
   const { data: existingCartItem } = await supabase

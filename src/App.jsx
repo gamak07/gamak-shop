@@ -23,6 +23,7 @@ import LoginForm from "./features/authentication/LoginForm";
 import Checkout from "./features/payment/Checkout";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import NotFound from "./ui/NotFound";
+import Order from "./pages/Order";
 
 function App() {
   const queryClient = new QueryClient({
@@ -42,7 +43,7 @@ function App() {
                 <Route path="/account" element={<Account />} />
                 <Route path="/saved" element={<Saved />} />
                 <Route path="/checkout" element={<Checkout />} />
-                {/* <Route path="/orders" element /> */}
+                <Route path="/orders" element={<Order />} />
               </Route>
 
               <Route index element={<Navigate replace to="/home" />} />
