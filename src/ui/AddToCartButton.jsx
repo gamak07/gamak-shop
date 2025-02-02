@@ -2,7 +2,7 @@ import { useAddToCart } from "../features/carts/useAddToCart";
 import Button from "./Button";
 
 const AddToCartButton = ({ userId, productId, quantity }) => {
-  const { isPending, addSignInUserCart, error } = useAddToCart();
+  const { isPending, addSignInUserCart } = useAddToCart();
 
   const handleSignInUserCart = (e) => {
     e.stopPropagation(); // Prevent parent element click events
@@ -13,7 +13,7 @@ const AddToCartButton = ({ userId, productId, quantity }) => {
     <div className="relative">
       <Button
         className={`bg-indigo-600 text-white py-2 px-2 mt-2 rounded-md hover:bg-indigo-500 transition 
-          duration-300 w-[fit-content] text-nowrap ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
+          duration-300 w-full text-nowrap ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
         onClick={handleSignInUserCart}
         disabled={isPending} // Disable button when API call is in progress
       >

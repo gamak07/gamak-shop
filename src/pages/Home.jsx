@@ -5,7 +5,6 @@ import HeroSection from "../features/home/HeroSection";
 const Home = () => {
   return (
     <>
-    <p>weirddoo</p>
       <HeroSection />
       <FeaturedProducts />
       <Categories />
