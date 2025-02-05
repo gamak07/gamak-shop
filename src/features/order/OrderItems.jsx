@@ -8,7 +8,6 @@ const OrderItems = () => {
     const { orders, isPending } = useOrder(user.id);
 
     if (isPending) return <Loading />;
-    console.log(orders)
 
   if (!orders || orders.length === 0) {
     return <div className="text-center py-8">No orders found.</div>;

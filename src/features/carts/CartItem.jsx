@@ -15,47 +15,39 @@ const CartItem = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Redux state (for guest cart)
   const guestCart = useSelector((state) => state.cart.items);
   const counts = useSelector((state) => state.count.items);
 
-  // Fetch authenticated user's cart
   const { user } = useUser();
   const userId = user?.id;
 
   const { isPending, carts: authCarts } = useCart(userId);
-  const {isPending: deletingCart, clearCart: clearAuthCart} = useClearAuthCart()
-  const cart = userId
-    ? authCarts || [] // Use authenticated cart if user is logged in
-    : guestCart; // Otherwise, use guest cart
+  const { isPending: deletingCart, clearCart: clearAuthCart } = useClearAuthCart();
 
+  const cart = userId ? authCarts || [] : guestCart;
   const cartData = normalizeCartData(cart, userId);
 
   const cartWithCounts = cartData.map((item) => ({
     ...item,
-    count: item.quantity || counts[item.product_id || item.id] || 1, // Handle guest and authenticated cart IDs
+    count: item.quantity || counts[item.product_id || item.id] || 1,
   }));
 
-  
-
   const total = cartWithCounts.reduce(
-    (acc, cur) => acc + (cur.price || 0) * cur.count, // Ensure `price` is handled correctly
+    (acc, cur) => acc + (cur.price || 0) * cur.count,
     0
   );
 
-  
   const handleClearCart = () => {
     if (userId) {
-      clearAuthCart(userId)
-    }
-    else {
+      clearAuthCart(userId);
+    } else {
       dispatch(clearCart());
     }
   };
 
   return (
-    <div className="relative flex p-6 gap-6">
-      <div className="container mx-auto">
+    <div className="relative flex flex-col lg:flex-row p-6 gap-6 max-w-7xl mx-auto">
+      <div className="w-full lg:w-3/4">
         <Button
           className="h-8 w-8 rounded-full flex items-center justify-center hover:bg-gray-400 hover:text-softWhite"
           onClick={() => navigate("/products")}
@@ -70,18 +62,13 @@ const CartItem = () => {
           <p className="text-gray-500">Your cart is empty.</p>
         ) : (
           cartData.map((product) => (
-            <CartList
-              key={product.id}
-              product={product}
-              userId={userId}
-              cart={authCarts}
-            />
+            <CartList key={product.id} product={product} userId={userId} cart={authCarts} />
           ))
         )}
 
         {cart.length >= 1 && (
           <Button
-            className="flex bg-indigo-600 py-2 px-4 rounded-md ml-auto"
+            className="flex bg-indigo-600 py-2 px-4 rounded-md ml-auto mt-4 mb:text-[15px]"
             onClick={handleClearCart}
             disabled={deletingCart}
           >

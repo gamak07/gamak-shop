@@ -16,8 +16,6 @@ const CartList = ({ product, userId, cart }) => {
   const cartItem = cart.find((item) => item.id === id);
   const authCartId = cartItem?.id;
 
-  console.log(id, authCartId)
-
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
@@ -34,7 +32,7 @@ const CartList = ({ product, userId, cart }) => {
   const totalPrice = price * count;
   const handleDecrement = () => {
     if (userId) {
-      updateQuantity({userId, productId: authCartId, newQuantity: count - 1});
+      updateQuantity({ userId, productId: authCartId, newQuantity: count - 1 });
     } else {
       dispatch(decrement({ id }));
     }
@@ -42,7 +40,7 @@ const CartList = ({ product, userId, cart }) => {
   const handleIncrement = () => {
     if (count < itemLeft) {
       if (userId) {
-        updateQuantity({userId, productId: authCartId, newQuantity: count + 1});
+        updateQuantity({ userId, productId: authCartId, newQuantity: count + 1 });
       } else {
         dispatch(increment({ id }));
       }
@@ -50,38 +48,34 @@ const CartList = ({ product, userId, cart }) => {
   };
 
   return (
-    <div className="flex items-center justify-between bg-white rounded-lg shadow-md p-4 mb-4">
-      <div className="flex items-center space-x-4">
-        <div className="flex flex-col gap-2">
-          <img
-            src={image}
-            alt={name}
-            className="w-24 h-24 object-cover rounded-md"
-          />
+    <div className="flex flex-col sm:flex-row items-center justify-between bg-white rounded-lg shadow-md p-4 mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
+      <div className="flex flex-col sm:flex-row items-center sm:space-x-4 w-full sm:w-auto">
+        <img
+          src={image}
+          alt={name}
+          className="w-24 h-24 object-cover rounded-md"
+        />
+        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+          <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
+          <p className="text-sm text-gray-500">{itemLeft} items left</p>
           <Button
-            className="text-red-500 hover:text-red-700 flex items-center"
+            className="text-red-500 hover:text-red-700 flex items-center mt-2"
             onClick={() => handleDelete(id)}
           >
             <HiTrash className="mr-1" /> Remove
           </Button>
         </div>
-        <div>
-          <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
-          <p className="text-sm text-gray-500">{itemLeft} items left</p>
-        </div>
       </div>
-      <div className="flex flex-col justify-between items-end h-24">
-        <p className="text-xl font-bold text-indigo-600">
+      <div className="flex flex-col items-center sm:items-end w-full sm:w-auto">
+        <p className="text-xl font-bold text-indigo-600 mb-2">
           {formatCurrency(totalPrice)}
         </p>
-        <div className="flex">
-          <ItemCount
-            id={id}
-            handleDecrement={handleDecrement}
-            handleIncrement={handleIncrement}
-            count={count}
-          />
-        </div>
+        <ItemCount
+          id={id}
+          handleDecrement={handleDecrement}
+          handleIncrement={handleIncrement}
+          count={count}
+        />
       </div>
     </div>
   );

@@ -14,8 +14,12 @@ export default {
       },
       fontFamily: {
         montserrat: ['montserrat']
+      },
+      screens: {
+        'mb': {max: '480px'}
       }
     },
+
   },
   plugins: [],
 };

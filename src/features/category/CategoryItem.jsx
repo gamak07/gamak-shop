@@ -6,6 +6,7 @@ import Filter from "../../ui/Filter";
 import Sort from "../../ui/Sort";
 import Pagination from "../../ui/Pagination";
 import { pageSize } from "../../utils/constant";
+import clsx from 'clsx'
 
 const CategoryItem = () => {
   const { categoryName } = useParams(); 
@@ -16,6 +17,8 @@ const CategoryItem = () => {
   const maxPrice = Number(searchParams.get("max")) || Infinity;
   const sortOption = searchParams.get("sort") || "default";
   const currentPage = Number(searchParams.get("page")) || 1;
+
+  const isMobile = window.innerWidth <= 480
 
   if (isPending) return <Loading />;
   if (error)
@@ -76,12 +79,15 @@ const CategoryItem = () => {
         {categoryName.toUpperCase()} PRODUCTS
       </h1>
       <div className="relative flex flex-wrap md:flex-nowrap p-6">
-        <aside className="sticky h-fit top-[6rem] w-full md:w-1/4 md:pr-6 mb-6 md:mb-0">
+        <div className={clsx(
+  !isMobile && "sticky",
+  "h-fit top-[6rem] w-full md:w-1/4 md:pr-6 mb-6 md:mb-0 mb:flex"
+)}>
           <div className="bg-white p-4 rounded-lg shadow-md">
             <Filter />
             <Sort />
           </div>
-        </aside>
+        </div>
         <main className="w-full md:w-3/4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {paginatedProducts?.length > 0 ? (
