@@ -1,3 +1,5 @@
+import {lazy, Suspense} from 'react'
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -5,25 +7,30 @@ import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
+const Home = lazy(() => import("./pages/Home"));
+const Product = lazy(() => import("./pages/Product"));
+const About = lazy(() => import("./pages/About"));
+const ContactUs = lazy(() => import("./pages/ContactUs"));
+const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const Category = lazy(() => import("./pages/Category"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Account = lazy(() => import("./pages/Account"));
+const Saved = lazy(() => import("./pages/Saved"));
+const Signup = lazy(() => import("./features/authentication/SignupForm"));
+const LoginForm = lazy(() => import("./features/authentication/LoginForm"));
+const Checkout = lazy(() => import("./features/payment/Checkout"));
+const Order = lazy(() => import("./pages/Order"));
+
 import AppLayout from "./ui/AppLayout";
-import Home from "./pages/Home";
-import Product from "./pages/Product";
-import About from "./pages/About";
-import ContactUs from "./pages/ContactUs";
-import ProductDetail from "./pages/ProductDetail";
-import Category from "./pages/Category";
-import Cart from "./pages/Cart";
-import Account from "./pages/Account";
-import Saved from "./pages/Saved";
-import Signup from "./features/authentication/SignupForm";
+
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import LoginForm from "./features/authentication/LoginForm";
-import Checkout from "./features/payment/Checkout";
+
 import ProtectedRoute from "./ui/ProtectedRoute";
+
 import NotFound from "./ui/NotFound";
-import Order from "./pages/Order";
+import Loading from "./ui/Loading";
 
 function App() {
   const queryClient = new QueryClient({
@@ -37,6 +44,7 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <Provider store={store}>
         <BrowserRouter>
+        <Suspense fallback={<Loading />}/>
           <Routes>
             <Route element={<AppLayout />}>
               <Route element={<ProtectedRoute />}>

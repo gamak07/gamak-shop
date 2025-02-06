@@ -1,7 +1,7 @@
 import AddressManagement from "../features/account/AddressManagement";
 import UserProfile from "../features/account/UserProfile";
 import OrderHistory from "../features/account/OrderHistory";
-import Password from '../features/account/password'
+import Password from '../features/account/Password'
 
 const Account = () =>{
    

@@ -19,9 +19,8 @@ const OrderHistory = () => {
             <span className={`${order.status === 'pending'? 'text-yellow-600' :"text-green-600"}`}>{order.status}</span>
           </li>
         ))}
-          
         </ul>
-        <Button className='flex items-center justify-center shadow-md w-full border' onClick={()=>navigate('/orders')}>See all ...</Button>
+      {orders?.length > 3 && (<Button className='flex items-center justify-center shadow-md w-full border' onClick={()=>navigate('/orders')}>See all ...</Button>)}
       </div>
   )
 }
