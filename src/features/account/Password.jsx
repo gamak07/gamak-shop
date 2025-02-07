@@ -1,7 +1,8 @@
 import { useState } from "react";
-import Button from "../../ui/Button";
 import { useUser } from "../authentication/useUser";
+
 import PasswordUpdate from "./PasswordUpdate";
+import Button from "../../ui/Button";
 
 const Password = () => {
   const { user } = useUser();

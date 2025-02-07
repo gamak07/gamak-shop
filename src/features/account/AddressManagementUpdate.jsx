@@ -1,14 +1,12 @@
 import { useState } from "react";
-// import ReactDOM from "react-dom";
 import { createPortal } from "react-dom";
-import Button from "../../ui/Button";
 import { useUpdateUserProfile } from "./useUpdateUserPofile";
-// import { useUpdateUserProfile } from "./useUpdateUserProfile";
+
+import Button from "../../ui/Button";
 
 const AddressManagementUpdate = ({ isOpen, user, onClose }) => {
   const { isUpdating, updateUserProfile } = useUpdateUserProfile();
-    const [address, setAddress] = useState(user?.user_metadata.address)
-
+  const [address, setAddress] = useState(user?.user_metadata.address);
 
   if (!isOpen) return null; // Prevent rendering if modal is closed
   const handleSubmit = (e) => {
@@ -20,7 +18,7 @@ const AddressManagementUpdate = ({ isOpen, user, onClose }) => {
       {
         onSuccess: () => {
           // isOpen; // Close modal after successful update
-          onClose()
+          onClose();
         },
       }
     );
@@ -31,7 +29,6 @@ const AddressManagementUpdate = ({ isOpen, user, onClose }) => {
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 className="text-lg font-bold mb-4">Edit Address</h2>
         <form onSubmit={handleSubmit}>
-          
           <div className="mb-4">
             <label className="block text-sm font-bold">Address:</label>
             <input
@@ -60,7 +57,7 @@ const AddressManagementUpdate = ({ isOpen, user, onClose }) => {
         </form>
       </div>
     </div>,
-    document.body 
+    document.body
   );
 };
 

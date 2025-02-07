@@ -83,7 +83,7 @@ const CategoryItem = () => {
   !isMobile && "sticky",
   "h-fit top-[6rem] w-full md:w-1/4 md:pr-6 mb-6 md:mb-0 mb:flex"
 )}>
-          <div className="bg-white p-4 rounded-lg shadow-md">
+          <div className="bg-white p-4 rounded-lg shadow-md mb:w-full">
             <Filter />
             <Sort />
           </div>
